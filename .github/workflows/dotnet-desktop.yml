@@ -25,26 +25,26 @@ jobs:
 
       # 恢复依赖项
       - name: Restore dependencies
-        run: dotnet restore <SolutionName>.sln
+        run: dotnet restore NewcoreTestTool.sln
 
       # 构建项目
       - name: Build the project
-        run: dotnet build <SolutionName>.sln --configuration Release --no-restore
+        run: dotnet build NewcoreTestTool.sln --configuration Release --no-restore
 
       # 发布应用
       - name: Publish application
-        run: dotnet publish src/<ProjectName>/<ProjectName>.csproj --configuration Release --output ./output
+        run: dotnet publish src/NewcoreTestTool/NewcoreTestTool.csproj --configuration Release --output ./output
 
       # 压缩发布文件
       - name: Create zip file
-        run: Compress-Archive -Path ./output/* -DestinationPath ./output/<ProjectName>.zip
+        run: Compress-Archive -Path ./output/* -DestinationPath ./output/NewcoreTestTool.zip
 
       # 上传发布文件到 GitHub Actions 工作区
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: WPF-Application
-          path: ./output/<ProjectName>.zip
+          path: ./output/NewcoreTestTool.zip
 
   release:
     needs: build
@@ -61,7 +61,7 @@ jobs:
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: './WPF-Application/<ProjectName>.zip'
+          artifacts: './WPF-Application/NewcoreTestTool.zip'
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ github.run_number }}
           releaseName: 'WPF Release v${{ github.run_number }}'
