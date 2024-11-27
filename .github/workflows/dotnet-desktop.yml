@@ -33,7 +33,7 @@ jobs:
 
       # 发布应用
       - name: Publish application
-        run: dotnet publish src/NewcoreTestTool/NewcoreTestTool.csproj --configuration Release --output ./output
+        run: dotnet publish NewcoreTestTool/NewcoreTestTool.csproj --configuration Release --output ./output
 
       # 压缩发布文件
       - name: Create zip file
