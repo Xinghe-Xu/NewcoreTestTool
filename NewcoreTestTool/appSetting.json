@@ -1,0 +1,10 @@
+﻿{
+    "mesUrl": "https://meigao.frp.newcoretech.com",
+    //"mesUrl": "https://c2.xinheyun.com",
+    "openApi": {
+        "appKey": "c0798db9-151f-42a9-af0f-d3b2aab158fa",
+        "appSecret": "3UTuzQj%q2_SOj|w"
+    },
+    "thirdPartyPath": "APPS",
+    "resultFilePath": ""
+}

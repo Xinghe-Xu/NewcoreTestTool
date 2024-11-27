@@ -1,0 +1,92 @@
+﻿<Window
+    x:Class="NewcoreTestTool.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:NewcoreTestTool"
+    Title="MainWindow"
+    Width="800"
+    Height="550"
+    Background="#FF282C34"
+    mc:Ignorable="d">
+    <Window.DataContext>
+        <vm:MainWindowViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <Style x:Key="GreenTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Green" />
+        </Style>
+    </Window.Resources>
+    <Grid Margin="10,10,10,10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="12" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="12" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="1" Margin="0,0,0,0" Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" FontSize="25" Foreground="Green" Text="SN: " />
+                <TextBox Width="260" Height="35" VerticalAlignment="Center" FontSize="25" Text="{Binding SnNumber}" />
+                <Button
+                    Margin="5,0,0,0"
+                    Background="#3e4249"
+                    Command="{Binding MesCommand}"
+                    CommandParameter="{Binding SnNumber}"
+                    Content="Mes获取"
+                    Foreground="Green" />
+            </StackPanel>
+            <StackPanel Grid.Row="3" Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" FontSize="25" Foreground="Green" Text="MacInfo:" />
+                <TextBox Width="260" Height="35" VerticalAlignment="Center" Text="{Binding Macs}" />
+            </StackPanel>
+        </Grid>
+        <StackPanel Grid.Column="0">
+            <!--  CPU Information  -->
+            <TextBlock Margin="0,0,0,10" FontSize="16" FontWeight="Bold" Style="{StaticResource GreenTextStyle}" Text="CPU Information:" />
+            <TextBlock Margin="10,0,0,0" Style="{StaticResource GreenTextStyle}" Text="{Binding SysInfo.CpuInformation.Name, StringFormat='Name: {0}'}" />
+            <TextBlock Margin="10,0,0,0" Style="{StaticResource GreenTextStyle}" Text="{Binding SysInfo.CpuInformation.Cores, StringFormat='Cores: {0}'}" />
+            <TextBlock Margin="10,0,0,0" Style="{StaticResource GreenTextStyle}" Text="{Binding SysInfo.CpuInformation.Threads, StringFormat='Threads: {0}'}" />
+            <TextBlock Margin="10,0,0,0" Style="{StaticResource GreenTextStyle}" Text="{Binding SysInfo.CpuInformation.MaxClockSpeed, StringFormat='Max Clock Speed: {0} MHz'}" />
+            <TextBlock Margin="10,0,0,0" Style="{StaticResource GreenTextStyle}" Text="{Binding SysInfo.CpuInformation.Manufacturer, StringFormat='Manufacturer: {0}'}" />
+
+            <!--  Disk Information  -->
+            <TextBlock Margin="0,10,0,10" FontSize="16" FontWeight="Bold" Style="{StaticResource GreenTextStyle}" Text="Disk Information:" />
+            <TextBlock Margin="10,0,0,0" Style="{StaticResource GreenTextStyle}" Text="{Binding SysInfo.DiskInformation.Model, StringFormat='Model: {0}'}" />
+            <TextBlock Margin="10,0,0,0" Style="{StaticResource GreenTextStyle}" Text="{Binding SysInfo.DiskInformation.InterfaceType, StringFormat='Interface Type: {0}'}" />
+            <TextBlock Margin="10,0,0,0" Style="{StaticResource GreenTextStyle}" Text="{Binding SysInfo.DiskInformation.Size, StringFormat='Size: {0} GB'}" />
+            <TextBlock Margin="10,0,0,0" Style="{StaticResource GreenTextStyle}" Text="{Binding SysInfo.DiskInformation.Partitions, StringFormat='Partitions: {0}'}" />
+            <TextBlock Margin="10,0,0,0" Style="{StaticResource GreenTextStyle}" Text="{Binding SysInfo.DiskInformation.DiskReadsPerSec, StringFormat='Disk Reads per Second: {0}'}" />
+            <TextBlock Margin="10,0,0,0" Style="{StaticResource GreenTextStyle}" Text="{Binding SysInfo.DiskInformation.DiskWritesPerSec, StringFormat='Disk Writes per Second: {0}'}" />
+
+            <!--  Memory Information  -->
+            <TextBlock Margin="0,10,0,10" FontSize="16" FontWeight="Bold" Style="{StaticResource GreenTextStyle}" Text="Memory Information:" />
+            <TextBlock Margin="10,0,0,0" Style="{StaticResource GreenTextStyle}" Text="{Binding SysInfo.MemoryInformation.TotalPhysicalMemory, StringFormat='Total Physical Memory: {0} MB'}" />
+
+            <!--  GPU Information  -->
+            <TextBlock Margin="0,10,0,10" FontSize="16" FontWeight="Bold" Style="{StaticResource GreenTextStyle}" Text="GPU Information:" />
+            <ItemsControl Margin="10,0,0,0" ItemsSource="{Binding SysInfo.GpuInformations}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="0,5">
+                            <TextBlock Style="{StaticResource GreenTextStyle}" Text="{Binding Name, StringFormat='Name: {0}'}" />
+                            <TextBlock Style="{StaticResource GreenTextStyle}" Text="{Binding Vendor, StringFormat='Vendor: {0}'}" />
+                            <TextBlock Style="{StaticResource GreenTextStyle}" Text="{Binding Usage, StringFormat='Usage: {0} %'}" />
+                            <TextBlock Style="{StaticResource GreenTextStyle}" Text="{Binding Temperature, StringFormat='Temperature: {0} °C'}" />
+                            <TextBlock Style="{StaticResource GreenTextStyle}" Text="{Binding MemoryUsage, StringFormat='Memory Usage: {0} MB'}" />
+                            <TextBlock Style="{StaticResource GreenTextStyle}" Text="{Binding TotalMemory, StringFormat='Total Memory: {0} MB'}" />
+                            <TextBlock Style="{StaticResource GreenTextStyle}" Text="{Binding Identifier, StringFormat='Identifier: {0}'}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </Grid>
+</Window>
