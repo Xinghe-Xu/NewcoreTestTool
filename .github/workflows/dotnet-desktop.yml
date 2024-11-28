@@ -45,25 +45,3 @@ jobs:
         with:
           name: WPF-Application
           path: ./output/NewcoreTestTool.zip
-
-  release:
-    needs: build
-    runs-on: windows-latest
-
-    steps:
-      # 下载构建工件
-      - name: Download artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: WPF-Application
-
-      # 发布到 GitHub Release
-      - name: Create GitHub Release
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: './WPF-Application/NewcoreTestTool.zip'
-          token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ github.run_number }}
-          releaseName: 'WPF Release v${{ github.run_number }}'
-          draft: false
-          prerelease: false
